@@ -1,8 +1,4 @@
-﻿
-
-// Taking size of the array
-
-using System;
+﻿// Taking size of the array
 
 int r, c;
 
@@ -25,7 +21,7 @@ for(int i = 0; i < r; i++)
 }
 
 // Displaying 2D integer array
-// 
+
 Console.WriteLine("\nThe 2D Array is: ");
 for(int i = 0; i < r; i++)
 {
@@ -37,6 +33,7 @@ for(int i = 0; i < r; i++)
 Console.WriteLine();
 
 // Displaying row-wise sum
+
 int MaxSum = 0;
 for (int i = 0; i < r; i++)
 {
@@ -90,10 +87,7 @@ int rightsum = 0;
 for (int i = 0; i < r; i++)
 {
     for (int j = i; j < i+1; j++)
-    {
-        //if (i == j)
-            rightsum += a[i, c-1-i]; 
-    }
+        rightsum += a[i, c-1-i];
 }
 Console.WriteLine(rightsum);
 MaxValue(rightsum);
