@@ -1,4 +1,4 @@
-﻿using OOP;
+﻿using OOP2;
 
 class Program
 {

@@ -1,4 +1,4 @@
-﻿namespace OOP
+﻿namespace OOP2
 {
     internal class WaterBottle
     {
@@ -77,7 +77,7 @@
 
             set
             {
-                //if(value >= 0 && value <= capacity)
+                if(value >= 0 && value <= capacity)
                     waterAmount = value;
             }
         }
