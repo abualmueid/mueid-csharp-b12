@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Task8
 {
-    public class VIPMember : Member
+    internal class VIPMember : Member
     {
-        public void ChangeExpirationDate(DateTime date)
+        internal void ChangeExpirationDate(DateTime date)
         {
             throw new NotImplementedException();
         }
