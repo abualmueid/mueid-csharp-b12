@@ -6,30 +6,16 @@ using System.Threading.Tasks;
 
 namespace Task4
 {
-    public class Teacher
+    public class Teacher : Person
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public string Id { get; private set; }
-        public string FullName
+        public Teacher(string firstName, string lastName, string email) : base(firstName, lastName, email)
         {
-            get
-            {
-                return $"{FirstName} {LastName}";
-            }
+
         }
 
-        public Teacher(string firstName, string lastName, string email)
+        public override void GenerateId()
         {
-            FirstName = firstName;
-            LastName = lastName;
-            Email = email;
-        }
-
-        public void GenerateId()
-        {
-            Id = "TE-" + DateTime.Now.Ticks.ToString();
+            Id = "TE-" + Guid.NewGuid().ToString();
         }
     }
 }
