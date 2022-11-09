@@ -24,10 +24,8 @@ namespace Task1
         public Product(string name, double price) : this()
         {
             Name = name;
-            Price = price;
+            Price = price; ???
         }
-
-         
 
         public Product(string name, double price, string description, string color)
         {
@@ -35,8 +33,6 @@ namespace Task1
             Price = price;
             Description = description;
             Color = color;
-
-            Console.WriteLine("2nd constructor");
         }
 
 
