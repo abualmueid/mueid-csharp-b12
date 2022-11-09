@@ -11,5 +11,14 @@ namespace Task10
         public string Name { get; set; }
         public string Description { get; set; }
         public string Image { get; set; }
+
+        ~Product()
+        {
+            Name = string.Empty;
+            Description = string.Empty;
+            Image = string.Empty;
+        }
     }
+
+    
 }
