@@ -8,9 +8,10 @@ namespace Task3
 {
     public class DatabaseConnection
     {
+        public readonly string connectionName;
         public DatabaseConnection(string connectionString)
         {
-
+            connectionName = connectionString;
         }
     }
 }

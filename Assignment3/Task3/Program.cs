@@ -1,2 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using System.Reflection.Metadata;
+using Task3;
+
+DatabaseConnection databaseConnection = new DatabaseConnection("Connected");
