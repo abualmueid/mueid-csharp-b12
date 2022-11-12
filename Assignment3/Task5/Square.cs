@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Task5
 {
-    public class Square
+    public class Square : ShapeCalculation
     {
         public double Side { get; private set; }
 
