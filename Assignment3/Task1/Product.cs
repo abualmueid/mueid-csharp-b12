@@ -21,13 +21,15 @@ namespace Task1
             
         }
 
-        public Product(string name, double price) : this()
+        public Product(string name, double price, string description, string color)
         {
             Name = name;
-            Price = price; ???
+            Price = price;
+            Description = description;
+            Color = color;
         }
 
-        public Product(string name, double price, string description, string color)
+        public Product(double price, string name, string description, string color)
         {
             Name = name;
             Price = price;
