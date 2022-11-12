@@ -1,6 +1,6 @@
 ﻿using Task2;
 
-Lock lock = new Lock();
+Console.WriteLine("Hello World");
 
 
 

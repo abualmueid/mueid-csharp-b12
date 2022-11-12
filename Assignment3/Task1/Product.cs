@@ -36,8 +36,5 @@ namespace Task1
             Description = description;
             Color = color;
         }
-
-
-
     }
 }
