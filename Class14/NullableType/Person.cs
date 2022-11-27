@@ -9,7 +9,6 @@ namespace NullableType
     public class Person
     {
         public string Name { get; set; }
-
         public void Talk(string something)
         {
             Console.WriteLine(something);
