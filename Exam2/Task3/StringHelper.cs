@@ -8,11 +8,11 @@ namespace Task3
 {
     public class StringHelper
     {
-        public string Append(string a, string b)
+        public string Append(params string[] a)
         {
-            return a + b;
+            return a.ToString();
         }
-
+        /*
         public string Append(string a, string b, string c)
         {
             return a + b + c;
@@ -22,5 +22,6 @@ namespace Task3
         {
             return a + b + c + d;
         }
+        */
     }
 }
