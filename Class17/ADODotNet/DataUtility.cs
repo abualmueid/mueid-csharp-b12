@@ -9,29 +9,91 @@ namespace ADODotNet
 {
     public class DataUtility
     {
-        public void InsertData()
+        private readonly string _connectionString;
+
+        public DataUtility(string connectionString)
         {
-            //string connectionString = @"Server=DESKTOP-SJFJ7LE\SQLEXPRESS01;Database=CSharpB12;User Id=DESKTOP-SJFJ7LE\Abu Al Mueid;Password=;";
-            string connectionString = @"Server=DESKTOP-SJFJ7LE\SQLEXPRESS01;Database=CSharpB12;Trusted_Connection=True";
-            SqlConnection connection = new SqlConnection(connectionString);
+            _connectionString = connectionString;
+        }
 
-            SqlCommand command = connection.CreateCommand();
+        // ------------- Insert Operation-------------- //
+        public void InsertData(string commandText)
+        {
+            using SqlConnection connection = new SqlConnection(_connectionString);
+
+            using SqlCommand command = connection.CreateCommand();
             command.Connection = connection;
-
-            //command.CommandText = "insert into Courses(Title, Fees, ClassStartDate, IsOpen, CourseCode) values('Node.js', 6000, '10-1-2023', 1, '1CC7D510-8130-4248-9947-BA2B3083B9EB')";
-            string commandText = "insert into Courses(Title, Fees, ClassStartDate, IsOpen, CourseCode) values('Node.js', 6000, '10-1-2023', 1, '1CC7D510-8130-4248-9947-BA2B3083B9EB')";
             command.CommandText = commandText;
-
-            
 
             if (connection.State != System.Data.ConnectionState.Open)
                 connection.Open();
 
             command.ExecuteNonQuery();
+            /*
             connection.Close();
             command.Dispose();
+            */
         }
 
+        // ------------- Delete Operation --------------- //
+        public void ExecuteQuery(string deleteCommand)
+        {
+            using SqlConnection connection = new SqlConnection(_connectionString);
 
+            using SqlCommand command = connection.CreateCommand();
+            command.Connection = connection;
+            command.CommandText = deleteCommand;
+
+            if (connection.State != System.Data.ConnectionState.Open)
+                connection.Open();
+
+            command.ExecuteNonQuery();
+        }
+
+        //---------- Display Operation (Hard Coded) ----------- //
+        public void ExecuteQuery2(string commandText2)
+        {
+            using SqlConnection connection = new SqlConnection(_connectionString);
+            using SqlCommand command = connection.CreateCommand();
+            command.Connection = connection;
+            command.CommandText = commandText2;
+
+            if (connection.State != System.Data.ConnectionState.Open)
+                connection.Open();
+
+            SqlDataReader reader = command.ExecuteReader();
+            while(reader.Read())
+            {
+                Console.WriteLine($"Id: {reader[0]}, Title: {reader["Title"]}, Fees: {reader["Fees"]}");
+            }
+        }
+
+        // ----------- Display Operation (Genuine Procedure) --------------- //
+
+        public List<Dictionary<string, object>> DisplayData(string getCommand)
+        {
+            using SqlConnection connection = new SqlConnection(_connectionString);
+            using SqlCommand command = connection.CreateCommand();
+            command.Connection = connection;
+            command.CommandText = getCommand;
+
+            if (connection.State != System.Data.ConnectionState.Open)
+                connection.Open();
+
+            List<Dictionary<string, object>> result = new List<Dictionary<string, object>>();
+
+            SqlDataReader reader = command.ExecuteReader();
+            while ( reader.Read() )
+            {
+                Dictionary<string, object> dict = new Dictionary<string, object>();
+                for(int i=0; i<reader.FieldCount; i++)
+                {
+                    dict.Add(reader.GetName(i), reader.GetValue(i));
+                }
+                result.Add(dict);
+            }
+            
+            return result;
+        }
     }
 }
