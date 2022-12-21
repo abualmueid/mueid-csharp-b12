@@ -17,18 +17,13 @@ namespace ADODotNet
         }
 
         // ------------- Insert Operation-------------- //
-        public void InsertData(string commandText)
+        public void InsertData(string commandText, IList<SqlParameter> parameters)
         {
-            using SqlConnection connection = new SqlConnection(_connectionString);
+            using SqlCommand command = GetCommand(commandText, parameters);
 
-            using SqlCommand command = connection.CreateCommand();
-            command.Connection = connection;
-            command.CommandText = commandText;
+            command.ExecuteNonQuery(); 
+            //command.Parameters.AddRange(parameters.ToArray());
 
-            if (connection.State != System.Data.ConnectionState.Open)
-                connection.Open();
-
-            command.ExecuteNonQuery();
             /*
             connection.Close();
             command.Dispose();
@@ -36,30 +31,17 @@ namespace ADODotNet
         }
 
         // ------------- Delete Operation --------------- //
-        public void ExecuteQuery(string deleteCommand)
+        public void ExecuteQuery(string deleteCommand, IList<SqlParameter> parameters)
         {
-            using SqlConnection connection = new SqlConnection(_connectionString);
-
-            using SqlCommand command = connection.CreateCommand();
-            command.Connection = connection;
-            command.CommandText = deleteCommand;
-
-            if (connection.State != System.Data.ConnectionState.Open)
-                connection.Open();
+            using SqlCommand command = GetCommand(deleteCommand, parameters);
 
             command.ExecuteNonQuery();
         }
 
         //---------- Display Operation (Hard Coded) ----------- //
-        public void ExecuteQuery2(string commandText2)
+        public void ExecuteQuery2(string commandText2, IList<SqlParameter> parameters)
         {
-            using SqlConnection connection = new SqlConnection(_connectionString);
-            using SqlCommand command = connection.CreateCommand();
-            command.Connection = connection;
-            command.CommandText = commandText2;
-
-            if (connection.State != System.Data.ConnectionState.Open)
-                connection.Open();
+            using SqlCommand command = GetCommand(commandText2, parameters);
 
             SqlDataReader reader = command.ExecuteReader();
             while(reader.Read())
@@ -69,19 +51,11 @@ namespace ADODotNet
         }
 
         // ----------- Display Operation (Genuine Procedure) --------------- //
-
-        public List<Dictionary<string, object>> DisplayData(string getCommand)
+        public List<Dictionary<string, object>> DisplayData(string commandText, IList<SqlParameter> parameters)
         {
-            using SqlConnection connection = new SqlConnection(_connectionString);
-            using SqlCommand command = connection.CreateCommand();
-            command.Connection = connection;
-            command.CommandText = getCommand;
-
-            if (connection.State != System.Data.ConnectionState.Open)
-                connection.Open();
+            using SqlCommand command = GetCommand(commandText, parameters);
 
             List<Dictionary<string, object>> result = new List<Dictionary<string, object>>();
-
             SqlDataReader reader = command.ExecuteReader();
             while ( reader.Read() )
             {
@@ -94,6 +68,20 @@ namespace ADODotNet
             }
             
             return result;
+        }
+
+        private SqlCommand GetCommand(string commandText, IList<SqlParameter> parameters)
+        {
+            SqlConnection connection = new SqlConnection(_connectionString);
+            SqlCommand command = connection.CreateCommand();
+            command.Connection = connection;
+            command.CommandText = commandText;
+
+            if (connection.State != System.Data.ConnectionState.Open)
+                connection.Open();
+
+            command.Parameters.AddRange(parameters.ToArray());
+            return command;
         }
     }
 }
